@@ -163,7 +163,7 @@ def build_pipeline():
     pipeline = Pipeline(
         steps=[
             ("preprocessor", preprocessor),
-            ("classifier", RandomForestClassifier(random_state=42)),
+            ("RandomForest", RandomForestClassifier(random_state=42)),
         ],
         verbose=False,
     )
@@ -176,11 +176,11 @@ def build_pipeline():
 def optimize_hyperparameters(pipeline):
 
     param_grid = {
-        "classifier__n_estimators": [100],
-        "classifier__max_depth": [10],
-        "classifier__min_samples_split": [10],
-        "classifier__min_samples_leaf": [4],
-        "classifier__max_features": [None],
+        "RandomForest__n_estimators": [200],
+        "RandomForest__max_depth": [None],
+        "RandomForest__min_samples_split": [5],
+        "RandomForest__min_samples_leaf": [2],
+        "RandomForest__max_features": ["sqrt"],
     }
 
     return GridSearchCV(
@@ -191,7 +191,6 @@ def optimize_hyperparameters(pipeline):
         n_jobs=-1,
         refit=True,
     )
-
 
 #  PASO 5: Guardar modelo
 
